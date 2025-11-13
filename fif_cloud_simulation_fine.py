@@ -2,11 +2,11 @@
 """
 FIF Cloud Condensate Simulation - FINE RESOLUTION
 
-Creates high-resolution 3D cloud condensate (QC) field (512x512x256).
+Creates high-resolution 3D cloud condensate (QC) field (256x256x128).
 This script runs the fine resolution simulation after reviewing coarse results.
 
 Domain: 6km x 6km x 2km
-Resolution: 512x512x256 (~11.7m x 11.7m x 7.8m)
+Resolution: 256x256x128 (~23.4m x 23.4m x 15.6m)
 Parameters: H=0.4, C1=0.02, alpha=1.8
 Anisotropy: spheroscale=10m, Hz=5/9, scale_metric_dim=23/9
 Boundary conditions: Periodic in x,y; non-periodic in z
@@ -97,13 +97,13 @@ def main():
 
     # FINE RESOLUTION SIMULATION
     print("\n" + "=" * 70)
-    print("FINE RESOLUTION SIMULATION (512x512x256)")
+    print("FINE RESOLUTION SIMULATION (256x256x128)")
     print("=" * 70)
-    print("\nWARNING: This will take several minutes to complete.")
-    print("         Memory usage will be ~2-4 GB.")
+    print("\nWARNING: This will take a few minutes to complete.")
+    print("         Memory usage will be ~500 MB.")
     print()
 
-    nx_fine, ny_fine, nz_fine = 512, 512, 256
+    nx_fine, ny_fine, nz_fine = 256, 256, 128
 
     # Generate FIF simulation
     print("Starting fine resolution simulation...")
@@ -143,7 +143,7 @@ def main():
     print(f"  Cloud fraction: {100 * np.sum(QC_fine > 0) / QC_fine.size:.1f}%")
 
     # Save outputs
-    save_to_netcdf(QC_fine, grid_x, grid_y, grid_z, 'QC_fine_512x512x256.nc')
+    save_to_netcdf(QC_fine, grid_x, grid_y, grid_z, 'QC_fine_256x256x128.nc')
     plot_vertically_integrated(QC_fine, grid_x, grid_y, grid_z, 'QC_fine_integrated.png')
     plot_isosurfaces(QC_fine, grid_x, grid_y, grid_z, [0.01, 0.1], 'QC_fine_isosurfaces.png')
 
@@ -151,7 +151,7 @@ def main():
     print("FINE SIMULATION COMPLETE!")
     print("=" * 70)
     print("\nOutput files:")
-    print("  - QC_fine_512x512x256.nc")
+    print("  - QC_fine_256x256x128.nc")
     print("  - QC_fine_integrated.png")
     print("  - QC_fine_isosurfaces.png")
 
